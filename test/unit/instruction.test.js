@@ -1,6 +1,6 @@
 const Instruction = require('../../lib/actions/instruction');
 const assert = require('assert');
-const { describe, it } = require('mocha');
+const { describe, it, beforeEach } = require('mocha');
 const Rover = require('../../lib/actors/rover');
 const Plateau = require('../../lib/actors/plateau');
 
