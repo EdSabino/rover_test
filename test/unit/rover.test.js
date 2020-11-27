@@ -1,4 +1,4 @@
-const Rover = require('../lib/models/rover');
+const Rover = require('../../lib/actors/rover');
 const assert = require('assert');
 const { describe, it } = require('mocha');
 
@@ -6,13 +6,13 @@ describe('Rover', function() {
     it('Should keep the right started value', () => {
         const rover = new Rover('N', [0, 0]);
         assert.strictEqual('0 0 N', rover.toString());
-    })
+    });
 
     it('Should turn to right', () => {
         const rover = new Rover('N', [0, 0]);
         rover.turnRight();
         assert.strictEqual('0 0 E', rover.toString());
-    })
+    });
 
     it('Should turn to left', () => {
         const rover = new Rover('N', [0, 0]);
@@ -38,7 +38,7 @@ describe('Rover', function() {
         assert.strictEqual('0 0 W', rover.toString());
         rover.turnRight();
         assert.strictEqual('0 0 N', rover.toString());
-    })
+    });
 
     it('Should validate length of position', () => {
         try {
@@ -47,7 +47,7 @@ describe('Rover', function() {
         } catch (e) {
             assert.strictEqual('invalid_length', e.message);
         }
-    })
+    });
 
     it('Should validate valid plateau', () => {
         try {
@@ -55,6 +55,6 @@ describe('Rover', function() {
         } catch (e) {
             assert.strictEqual('out_of_plateau', e.message);
         }
-    })
+    });
 
 });
