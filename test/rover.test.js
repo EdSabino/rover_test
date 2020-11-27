@@ -3,66 +3,58 @@ const assert = require('assert');
 const { describe, it } = require('mocha');
 
 describe('Rover', function() {
-    it('Should keep the right started value 1', () => {
-        const direction = new Direction('N');
-        assert.strictEqual('N', direction.getChar());
+    it('Should keep the right started value', () => {
+        const rover = new Rover('N', [0, 0]);
+        assert.strictEqual('0 0 N', rover.toString());
     })
 
     it('Should turn to right', () => {
-        const direction = new Direction('W');
-        assert.strictEqual('W', direction.getChar());
-        direction.toRight();
-        assert.strictEqual('N', direction.getChar());
+        const rover = new Rover('N', [0, 0]);
+        rover.turnRight();
+        assert.strictEqual('0 0 E', rover.toString());
     })
 
     it('Should turn to left', () => {
-        const direction = new Direction('W');
-        assert.strictEqual('W', direction.getChar());
-        direction.toLeft();
-        assert.strictEqual('S', direction.getChar());
+        const rover = new Rover('N', [0, 0]);
+        rover.turnLeft();
+        assert.strictEqual('0 0 W', rover.toString());
     })
 
-    it('Should turn many times', () => {
-        const direction = new Direction('W');
-        assert.strictEqual('W', direction.getChar());
-        direction.toRight();
-        assert.strictEqual('N', direction.getChar());
-        direction.toRight();
-        assert.strictEqual('E', direction.getChar());
-        direction.toLeft();
-        assert.strictEqual('N', direction.getChar());
+    it('Should move to all directions', () => {
+        const rover = new Rover('N', [0, 0]);
+        rover.move();
+        assert.strictEqual('0 1 N', rover.toString());
+        rover.turnRight();
+        assert.strictEqual('0 1 E', rover.toString());
+        rover.move();
+        assert.strictEqual('1 1 E', rover.toString());
+        rover.turnRight();
+        assert.strictEqual('1 1 S', rover.toString());
+        rover.move();
+        assert.strictEqual('1 0 S', rover.toString());
+        rover.turnRight();
+        assert.strictEqual('1 0 W', rover.toString());
+        rover.move();
+        assert.strictEqual('0 0 W', rover.toString());
+        rover.turnRight();
+        assert.strictEqual('0 0 N', rover.toString());
     })
 
-    it('Should know when is vertical', () => {
-        let direction = new Direction('N');
-        assert.strictEqual(true, direction.isVerticalFacing());
-        direction = new Direction('W');
-        assert.strictEqual(false, direction.isVerticalFacing());
-    })
-
-    it('Should throw error if invalid direction', () => {
+    it('Should validate length of position', () => {
         try {
-            new Direction('P');
+            new Rover('N', [0, 0, 4]);
+
         } catch (e) {
-            assert.strictEqual('invalid_direction', e.message);
+            assert.strictEqual('invalid_length', e.message);
         }
     })
 
-    it('Should face positive', () => {
-        const direction = new Direction('N');
-        assert.strictEqual(true, direction.facingPositive());
-        direction.toRight();
-        assert.strictEqual('E', direction.getChar());
-        assert.strictEqual(true, direction.facingPositive());
+    it('Should validate valid plateau', () => {
+        try {
+            new Rover('N', [-1, 0]);
+        } catch (e) {
+            assert.strictEqual('out_of_plateau', e.message);
+        }
     })
 
-    it('Should face negative', () => {
-        const direction = new Direction('S');
-        assert.strictEqual(false, direction.facingPositive());
-        direction.toRight();
-        assert.strictEqual('W', direction.getChar());
-        assert.strictEqual(false, direction.facingPositive());
-    })
-
-    
 });
