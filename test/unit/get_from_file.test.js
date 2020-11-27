@@ -14,7 +14,7 @@ LMLLMLMM
 3 2 E
 MMRMRMRRM`;
 
-describe('Parse', function() {
+describe('GetFromFile', function() {
     it('must parse 1', () => {
         const getFromFile = new GetFromFile('./test/mocks/test_file_1.txt')
         const stringResult = getFromFile.execute();
